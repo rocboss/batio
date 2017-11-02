@@ -11,7 +11,7 @@ use Psr\Log\LogLevel;
  */
 class Batio
 {
-    const VERSION = 'Batio 0.1.0';
+    const VERSION = 'Batio 0.1.1';
 
     protected static $_log;
     protected static $_db = [];
