@@ -8,6 +8,7 @@ use Lcobucci\JWT\Signer\Hmac\Sha256;
 class Auth
 {
     const APP_NAME = 'batio';
+    const APP_DEFAULT_KEY = 'kA6oyldBWmX9AtGN';
 
     public static $authActions = [];
 
@@ -21,7 +22,7 @@ class Auth
                 ->setNotBefore(time()) // Configures the time that the token can be used (nbf claim)
                 ->setExpiration(time() + env('JWT_TTL', 60) * 60) // Configures the expiration time of the token (exp claim)
                 ->set('uid', $uid) // Configures a new claim, called "uid"
-                ->sign((new Sha256()), env('JWT_SECRET', 'kA6oyldBWmX9AtGN')) // creates a signature using "testing" as key
+                ->sign((new Sha256()), env('JWT_SECRET', self::APP_DEFAULT_KEY)) // creates a signature using "testing" as key
                 ->getToken(); // Retrieves the generated token
     }
 
@@ -41,7 +42,7 @@ class Auth
             // Parses from a string
             $token = (new Parser())->parse((string) $token);
 
-            if ($token->verify((new Sha256()), env('JWT_SECRET', 'kA6oyldBWmX9AtGN'))) {
+            if ($token->verify((new Sha256()), env('JWT_SECRET', self::APP_DEFAULT_KEY))) {
 
                 $data = new ValidationData();
                 $data->setIssuer(env('APP_NAME', self::APP_NAME));
