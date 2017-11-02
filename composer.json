@@ -1,0 +1,26 @@
+{
+    "name": "rocboss/batio",
+    "description": "A fast and extensible micro-framework for PHP to build RESTful API.",
+    "homepage": "https://github.com/rocboss/batio",
+    "type": "project",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "ROC",
+            "email": "i@rocs.me",
+            "homepage": "https://rocs.me/"
+        }
+    ],
+    "require": {
+        "php": ">=5.5.9",
+        "lcobucci/jwt": "3.2.*",
+        "mikecao/flight": "1.3.*",
+        "catfan/medoo": "1.4.*",
+        "katzgrau/klogger": "1.*",
+        "doctrine/cache": "1.4.*",
+        "vlucas/phpdotenv": "2.0.*"
+    },
+    "config": {
+        "preferred-install": "dist"
+    }
+}
