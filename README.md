@@ -1,9 +1,9 @@
 # Batio
 [![Build Status](https://www.travis-ci.org/rocboss/batio.svg?branch=master)](https://www.travis-ci.org/rocboss/batio)
+![Branch master](https://img.shields.io/badge/branch-master-brightgreen.svg?style=flat-square)
 [![Latest Stable Version](https://poser.pugx.org/rocboss/batio/v/stable.svg?format=flat-square)](https://packagist.org/packages/rocboss/batio)
 [![Latest Unstable Version](https://poser.pugx.org/rocboss/batio/v/unstable.svg?format=flat-square)](https://packagist.org/packages/rocboss/batio)
 [![License](https://poser.pugx.org/rocboss/batio/license?format=flat-square)](https://packagist.org/packages/rocboss/batio)
-[![Total Downloads](https://poser.pugx.org/rocboss/batio/downloads?format=flat-square)](https://packagist.org/packages/rocboss/batio)
 
 >   A fast and extensible micro-framework for PHP to build RESTful API.
 
