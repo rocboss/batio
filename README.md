@@ -16,7 +16,7 @@
 git clone https://github.com/rocboss/batio.git batio
 
 // 方式二. 使用 composer
-composer create-project --prefer-dist ycrao/tinyme tinyme
+composer create-project --prefer-dist rocboss/batio batio
 
 cd batio
 cp .env.example .env
