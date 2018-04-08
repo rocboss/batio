@@ -28,6 +28,9 @@ Flight::set(require APP_PATH.'/config/app.php');
 // controllers
 Flight::path(Flight::get('flight.controllers.path'));
 
+// middlewares
+Flight::path(Flight::get('flight.middlewares.path'));
+
 // models
 Flight::path(Flight::get('flight.models.path'));
 

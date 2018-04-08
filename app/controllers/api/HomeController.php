@@ -15,12 +15,25 @@ class HomeController extends BaseController
      * @method index
      * @return mixed
      */
-    public function actionIndex()
+    protected function index()
     {
         return Flight::json([
             'code' => 0,
             'msg'  => 'success',
-            'data' => 'version: '.\Batio::VERSION
+            'data' => 'version: '.\Batio::VERSION,
+        ]);
+    }
+
+    protected function user()
+    {
+        return Flight::json([
+            'code' => 0,
+            'msg'  => 'success',
+            'data' => [
+                'uid' => 1,
+                'user_name' => 'Jack',
+                'user_age' => 18,
+            ]
         ]);
     }
 }

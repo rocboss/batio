@@ -37,15 +37,17 @@ php -S 127.0.0.1:8888 -t public
 ### 框架使用
 在 `app\config\routes.php` 中你可以自定义API路由。
 
-这是一个无鉴权的路由，访问首页时，直接映射到 `api\HomeController` 控制器，执行下面的 `actionIndex` 方法。
+这是一个无鉴权的路由，访问首页时，直接映射到 `api\HomeController` 控制器，执行下面的 `index` 方法，注意控制器方法类型需要为 `protected`。
 
 ```php
 route('GET /', ['api\HomeController', 'index']);
 ```
-`Batio` 封装了基于JWT的一种简单的鉴权模型，对应的需要鉴权API的路由如下，只需在 `route()` 中新增第三方个参数 `true` 即可。
+
+`Batio` 封装了基于JWT的一种简单的鉴权模型，对应的需要鉴权API的路由如下，只需调用 `auth()` 方法，传入自定义认证中间件`AuthMiddleware`。
 ```php
-route('GET /', ['api\HomeController', 'index'], true);
+route('GET /', ['api\HomeController', 'index'])->auth('web');
 ```
+
 请求时在 `header` 中传递以 `X-Authorization` 为key的 `JWT` 值给服务器即可。
 ```
 // 该方法可用来获取 JWT

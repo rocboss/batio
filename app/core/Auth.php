@@ -10,7 +10,11 @@ class Auth
     const APP_NAME = 'batio';
     const APP_DEFAULT_KEY = 'kA6oyldBWmX9AtGN';
 
+    public static $callback = null;
+    public static $instance = null;
     public static $authActions = [];
+
+    public function __construct() {}
 
     public static function getToken($uid)
     {
@@ -69,5 +73,26 @@ class Auth
         }
 
         return -1;
+    }
+
+    public function getInstance()
+    {
+        if (empty(self::$instance)) {
+            self::$instance = new self();
+        }
+
+        return self::$instance;
+    }
+
+    public function setCallback($callback)
+    {
+        self::$callback = $callback;
+
+        return self::getInstance();
+    }
+
+    public function auth($authMiddleware)
+    {
+        self::$authActions[md5(implode('@', self::$callback))] = $authMiddleware;
     }
 }

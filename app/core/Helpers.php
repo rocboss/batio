@@ -63,31 +63,13 @@ if (!function_exists('route')) {
      * @method route
      * @param  mixed  $pattern
      * @param  mixed  $callback
-     * @param  boolean $checkAuth
+     * @param  string $authMiddleware
      * @return void
      */
-    function route($pattern, $callback, $checkAuth = false)
-    {
-        if ($checkAuth) {
-            array_push(Auth::$authActions, implode('@', $callback));
-        }
-        if (count($callback)) {
-            # code...
-        }
+    function route($pattern, $callback)
+    {   
         Flight::route($pattern, $callback);
 
-        // $headers = getAllHeader();
-        //
-        // if (!empty($headers['x-authorization'])) {
-        //     $verify = Auth::verify($headers['x-authorization']);
-        //     if ($verify === 1) {
-        //         Flight::route($pattern, $callback);
-        //     }
-        // }
-        //
-        // return self::halt([
-        //     'code' => 401,
-        //     'msg'  => '[401 Unauthorized].'.Flight::get('auth.error')
-        // ], 401);
+        return Auth::getInstance()->setCallback($callback);
     }
 }

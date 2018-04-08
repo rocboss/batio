@@ -52,6 +52,20 @@ class Batio
         // Cache
         Flight::register('cache', [__CLASS__, 'cache']);
 
+        // Auth
+        Flight::map('auth', function ($callback) {
+            if (!empty($callback) && is_array($callback)) {
+                $callbackHash = md5(implode('@', $callback));
+                if (array_key_exists($callbackHash, Auth::$authActions)) {
+                    if (Flight::get('auth.collections')[Auth::$authActions[$callbackHash]]) {
+                        return Flight::get('auth.collections')[Auth::$authActions[$callbackHash]]::check();
+                        
+                    }
+                    throw new Exception('Can\'t find the auth middleware.');    
+                }
+            }
+        });
+
         // Halt response
         Flight::map('halt', [__CLASS__, 'halt']);
 

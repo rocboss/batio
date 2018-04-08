@@ -5,6 +5,7 @@
  */
 return [
     'flight.controllers.path' => dirname(__DIR__).'/controllers',
+    'flight.middlewares.path' => dirname(__DIR__).'/middlewares',
     'flight.models.path'      => dirname(__DIR__).'/models',
     'flight.core.path'        => dirname(__DIR__).'/core',
     // setting url case_sensitive, default false
@@ -23,4 +24,8 @@ return [
 
     'cache.path' => dirname(__DIR__).'/storage/cache',
     'log.path'   => dirname(__DIR__).'/storage/logs',
+
+    'auth.collections' => [
+        'web' => WebAuthMiddleware::class,
+    ],
 ];
