@@ -39,8 +39,8 @@ class Auth
     public static function verify($token)
     {
         // Reset UID 0
-        Flight::set('uid', 0);
-        Flight::set('auth.error', '');
+        app()->set('uid', 0);
+        app()->set('auth.error', '');
 
         try {
             // Parses from a string
@@ -52,7 +52,7 @@ class Auth
                 $data->setIssuer(env('APP_NAME', self::APP_NAME));
 
                 if ($token->validate($data) && $token->getClaim('uid') > 0) {
-                    Flight::set('uid', $token->getClaim('uid'));
+                    app()->set('uid', $token->getClaim('uid'));
 
                     return 1;
                 }
@@ -60,16 +60,16 @@ class Auth
                 $exp = $token->getClaim('exp');
                 if ($exp >= time() + env('JWT_REFRESH_TTL', 60) * 60) {
                     // Need refresh token
-                    Flight::set('auth.error', 'Token has expired.');
+                    app()->set('auth.error', 'Token has expired.');
                     return 0;
                 }
             }
 
             // Unauthentication
-            Flight::set('auth.error', 'Invalid Token.');
+            app()->set('auth.error', 'Invalid Token.');
         } catch (Exception $e) {
             // Invaild Token
-            Flight::set('auth.error', $e->getMessage());
+            app()->set('auth.error', $e->getMessage());
         }
 
         return -1;

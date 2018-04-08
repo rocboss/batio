@@ -18,7 +18,7 @@ require __DIR__.'/../vendor/autoload.php';
 | Set Flight System Configuration
 |--------------------------------------------------------------------------
 */
-Flight::set(require APP_PATH.'/config/app.php');
+app()->set(require APP_PATH.'/config/app.php');
 
 /*
 |--------------------------------------------------------------------------
@@ -26,16 +26,16 @@ Flight::set(require APP_PATH.'/config/app.php');
 |--------------------------------------------------------------------------
 */
 // controllers
-Flight::path(Flight::get('flight.controllers.path'));
+app()->path(app()->get('flight.controllers.path'));
 
 // middlewares
-Flight::path(Flight::get('flight.middlewares.path'));
+app()->path(app()->get('flight.middlewares.path'));
 
 // models
-Flight::path(Flight::get('flight.models.path'));
+app()->path(app()->get('flight.models.path'));
 
 // core
-Flight::path(Flight::get('flight.core.path'));
+app()->path(app()->get('flight.core.path'));
 /*
 |--------------------------------------------------------------------------
 | Flight autoload end

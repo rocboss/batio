@@ -1,7 +1,6 @@
 <?php
 namespace api;
 
-use Flight;
 use BaseController;
 use model\UserModel;
 
@@ -17,7 +16,7 @@ class HomeController extends BaseController
      */
     protected function index()
     {
-        return Flight::json([
+        return app()->json([
             'code' => 0,
             'msg'  => 'success',
             'data' => 'version: '.\Batio::VERSION,
@@ -26,7 +25,7 @@ class HomeController extends BaseController
 
     protected function user()
     {
-        return Flight::json([
+        return app()->json([
             'code' => 0,
             'msg'  => 'success',
             'data' => [

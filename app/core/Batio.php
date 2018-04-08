@@ -44,21 +44,21 @@ class Batio
         */
 
         // Log
-        Flight::register('log', [__CLASS__, 'log']);
+        app()->register('log', [__CLASS__, 'log']);
 
         // DB
-        Flight::register('db', [__CLASS__, 'db']);
+        app()->register('db', [__CLASS__, 'db']);
 
         // Cache
-        Flight::register('cache', [__CLASS__, 'cache']);
+        app()->register('cache', [__CLASS__, 'cache']);
 
         // Auth
-        Flight::map('auth', function ($callback) {
+        app()->map('auth', function ($callback) {
             if (!empty($callback) && is_array($callback)) {
                 $callbackHash = md5(implode('@', $callback));
                 if (array_key_exists($callbackHash, Auth::$authActions)) {
-                    if (Flight::get('auth.collections')[Auth::$authActions[$callbackHash]]) {
-                        $middleware = Flight::get('auth.collections')[Auth::$authActions[$callbackHash]];
+                    if (app()->get('auth.collections')[Auth::$authActions[$callbackHash]]) {
+                        $middleware = app()->get('auth.collections')[Auth::$authActions[$callbackHash]];
                         return $middleware::check();
                         
                     }
@@ -68,12 +68,12 @@ class Batio
         });
 
         // Halt response
-        Flight::map('halt', [__CLASS__, 'halt']);
+        app()->map('halt', [__CLASS__, 'halt']);
 
         // Handle 404 error
-        Flight::map('notFound', function () {
+        app()->map('notFound', function () {
             // Record Log.
-            Flight::log()->error('404 NOT FOUND.', json_decode(json_encode(Flight::request()), true));
+            app()->log()->error('404 NOT FOUND.', json_decode(json_encode(app()->request()), true));
 
             return self::halt([
                 'code' => 404,
@@ -82,9 +82,9 @@ class Batio
         });
 
         // Handle 500 error
-        Flight::map('error', function (Exception $ex) {
+        app()->map('error', function (Exception $ex) {
             // Record Log.
-            Flight::log()->error("500 Internal Server Error.\n".$ex->getMessage()."\n".$ex->getTraceAsString());
+            app()->log()->error("500 Internal Server Error.\n".$ex->getMessage()."\n".$ex->getTraceAsString());
 
             $traceArr = explode("\n", $ex->getTraceAsString());
             array_unshift($traceArr, $ex->getMessage());
@@ -113,7 +113,7 @@ class Batio
      */
     public static function log($prefix = 'batio_')
     {
-        $logDir = Flight::get('log.path');
+        $logDir = app()->get('log.path');
 
         if (!isset(self::$_log)) {
             $options = [
@@ -138,7 +138,7 @@ class Batio
     {
         if (!isset(self::$_db[$name])) {
 
-            $db = Flight::get('db.'.$name);
+            $db = app()->get('db.'.$name);
 
             $dbInstance = new Medoo([
                 'database_type' => 'mysql',
@@ -164,7 +164,7 @@ class Batio
      */
     public static function cache($path = 'data')
     {
-        $path = Flight::get('cache.path').'/'.$path;
+        $path = app()->get('cache.path').'/'.$path;
         if (!is_dir($path)) {
             mkdir($path, 0777, true);
         }
@@ -186,7 +186,7 @@ class Batio
      */
     public static function halt(array $msg, $code = 200)
     {
-        return Flight::response(false)
+        return app()->response(false)
                 ->status($code)
                 ->header("Content-Type", "application/json; charset=utf8")
                 ->write(json_encode($msg))

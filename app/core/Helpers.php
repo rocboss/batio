@@ -1,5 +1,16 @@
 <?php
 
+if (!function_exists('app')) {
+    /**
+     * Get App instance
+     *
+     * @return mixed
+     */
+    function app()
+    {
+        return Flight::app();
+    }
+}
 if (!function_exists('env')) {
     /**
      * Get ENV variable

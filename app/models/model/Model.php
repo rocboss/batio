@@ -1,7 +1,6 @@
 <?php
 namespace model;
 
-use Flight;
 use Medoo\Medoo;
 
 class Model
@@ -16,7 +15,7 @@ class Model
     public function __construct($db = 'default')
     {
         if (!empty($db)) {
-            $this->setDb(Flight::db($db));
+            $this->setDb(app()->db($db));
         }
     }
 

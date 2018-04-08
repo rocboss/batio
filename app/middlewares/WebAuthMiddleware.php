@@ -21,9 +21,9 @@ class WebAuthMiddleware implements AuthMiddleware
             }
         }
 
-        Flight::halt([
+        app()->halt([
             'code' => 401,
-            'msg'  => '[401 Unauthorized].'.Flight::get('auth.error')
+            'msg'  => '[401 Unauthorized].'.app()->get('auth.error')
         ], 401);
 
         exit;

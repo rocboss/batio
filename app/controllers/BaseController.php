@@ -10,7 +10,7 @@ class BaseController
 
     public function __construct()
     {
-        Flight::auth(Flight::router()->current()->callback);
+        app()->auth(app()->router()->current()->callback);
     }
 
     public static function __callStatic($method, $arguments)

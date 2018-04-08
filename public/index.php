@@ -4,5 +4,5 @@
  */
 require __DIR__."/../bootstrap/init.php";
 
-Flight::before('start', ['Batio', 'bootstrap']);
-Flight::start();
+app()->before('start', ['Batio', 'bootstrap']);
+app()->start();

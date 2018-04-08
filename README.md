@@ -57,17 +57,17 @@ route('GET /', ['api\HomeController', 'index'])->auth('web');
 缓存（Cache）的使用
 
 ```php
-if (Flight::cache('data')->contains('foo')) {
-    $unit = Flight::cache('data')->fetch('foo');
+if (app()->cache('data')->contains('foo')) {
+    $unit = app()->cache('data')->fetch('foo');
 } else {
     $bar = 'bar cache';
-    Flight::cache('data')->save('foo', $bar);
+    app()->cache('data')->save('foo', $bar);
 }
 ```
 日志（Log）的使用
 
 ```php
-$logger = Flight::log()->debug('debug log');
+$logger = app()->log()->debug('debug log');
 ```
 
 
