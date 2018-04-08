@@ -58,7 +58,8 @@ class Batio
                 $callbackHash = md5(implode('@', $callback));
                 if (array_key_exists($callbackHash, Auth::$authActions)) {
                     if (Flight::get('auth.collections')[Auth::$authActions[$callbackHash]]) {
-                        return Flight::get('auth.collections')[Auth::$authActions[$callbackHash]]::check();
+                        $middleware = Flight::get('auth.collections')[Auth::$authActions[$callbackHash]];
+                        return $middleware::check();
                         
                     }
                     throw new Exception('Can\'t find the auth middleware.');    
