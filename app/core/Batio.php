@@ -1,9 +1,9 @@
 <?php
 
-use Medoo\Medoo;
 use Lcobucci\JWT\Builder;
 use Katzgrau\KLogger\Logger;
 use Psr\Log\LogLevel;
+use aryelgois\Medools\MedooConnection;
 
 /**
  * Batio kernel class
@@ -11,7 +11,7 @@ use Psr\Log\LogLevel;
  */
 class Batio
 {
-    const VERSION = 'Batio 0.2.0';
+    const VERSION = 'Batio 0.2.1';
 
     protected static $_log;
     protected static $_db = [];
@@ -57,8 +57,8 @@ class Batio
             if (!empty($callback) && is_array($callback)) {
                 $callbackHash = md5(implode('@', $callback));
                 if (array_key_exists($callbackHash, Auth::$authActions)) {
-                    if (app()->get('auth.collections')[Auth::$authActions[$callbackHash]]) {
-                        $middleware = app()->get('auth.collections')[Auth::$authActions[$callbackHash]];
+                    if (app()->get('auth.middlewares')[Auth::$authActions[$callbackHash]]) {
+                        $middleware = app()->get('auth.middlewares')[Auth::$authActions[$callbackHash]];
                         return $middleware::check();
                         
                     }
@@ -131,29 +131,17 @@ class Batio
     /**
      * Get database instance
      * @method db
-     * @param  string $name
+     * @param  string $database
      * @return Object
      */
-    public static function db($name = 'default')
+    public static function db($database = 'default')
     {
-        if (!isset(self::$_db[$name])) {
-
-            $db = app()->get('db.'.$name);
-
-            $dbInstance = new Medoo([
-                'database_type' => 'mysql',
-                'database_name' => isset($db['name']) ? $db['name'] : 'batio',
-                'server'        => isset($db['host']) ? $db['host'] : 'localhost',
-                'port'          => isset($db['port']) ? $db['port'] : 3306,
-                'username'      => isset($db['user']) ? $db['user'] : 'root',
-                'password'      => isset($db['pass']) ? $db['pass'] : '',
-                'charset'       => isset($db['charset']) ? $db['charset'] : 'utf8'
-            ]);
-
-            self::$_db[$name] = $dbInstance;
+        if (!isset(self::$_db[$database])) {
+            MedooConnection::loadConfig(APP_PATH.'/config/database.php');
+            self::$_db[$database] = MedooConnection::getInstance($database);
         }
 
-        return self::$_db[$name];
+        return self::$_db[$database];
     }
 
     /**

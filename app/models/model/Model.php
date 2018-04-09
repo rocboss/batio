@@ -1,31 +1,32 @@
 <?php
 namespace model;
 
-use Medoo\Medoo;
+use aryelgois\Medools\Model as MedoolsModel;
 
-class Model
+class Model extends MedoolsModel
 {
     protected $_error;
-    protected $_db;
 
     /**
      * Construct Method
      * @method __construct
+     * @return void
      */
     public function __construct($db = 'default')
     {
         if (!empty($db)) {
-            $this->setDb(app()->db($db));
+            app()->db($db);
         }
+        parent::__construct();
     }
 
+    /**
+     * getError
+     * @method getError
+     * @return void
+     */
     public function getError()
     {
         return $this->_error;
-    }
-
-    public function setDb(Medoo $db)
-    {
-        $this->_db = $db;
     }
 }

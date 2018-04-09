@@ -23,6 +23,25 @@ class HomeController extends BaseController
         ]);
     }
 
+    /**
+     * This is a demo method for model.
+     *
+     * @return void
+     */
+    protected function test()
+    {
+        $userModel = new UserModel();
+        $userModel->dump([
+            'id[>]' => 1,
+            'LIMIT' => [0, 10],
+        ]);
+    }
+
+    /**
+     * This is a demo method for authentication.
+     *
+     * @return void
+     */
     protected function user()
     {
         return app()->json([

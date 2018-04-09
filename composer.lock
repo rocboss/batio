@@ -4,21 +4,106 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "30bf55a66c4e12c6eab242794e1be7c8",
-    "content-hash": "2f90d6a71967b0e973a1e69e1a20507c",
+    "content-hash": "7640619b4d3c5c4a32656aefdf193ca7",
     "packages": [
         {
-            "name": "catfan/medoo",
-            "version": "v1.4.5",
+            "name": "aryelgois/medools",
+            "version": "v5.0.0",
             "source": {
                 "type": "git",
-                "url": "https://github.com/catfan/Medoo.git",
-                "reference": "8ee8ae1c4df0fee3822a01333eab88893e548fcc"
+                "url": "https://github.com/aryelgois/Medools.git",
+                "reference": "82d68bbe2c8f618d353b8221dda7cc7f0eaf2dcd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://files.phpcomposer.com/files/catfan/Medoo/8ee8ae1c4df0fee3822a01333eab88893e548fcc.zip",
-                "reference": "8ee8ae1c4df0fee3822a01333eab88893e548fcc",
+                "url": "https://files.phpcomposer.com/files/aryelgois/Medools/82d68bbe2c8f618d353b8221dda7cc7f0eaf2dcd.zip",
+                "reference": "82d68bbe2c8f618d353b8221dda7cc7f0eaf2dcd",
+                "shasum": ""
+            },
+            "require": {
+                "aryelgois/utils": "^0.5",
+                "catfan/medoo": "^1.5",
+                "php": "^7.0"
+            },
+            "suggest": {
+                "aryelgois/databases": "For some databases and models already created",
+                "aryelgois/yasql-php": "For creating database schemas"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "aryelgois\\Medools\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Aryel Mota Góis",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Wrapper on catfan/Medoo",
+            "keywords": [
+                "database",
+                "medoo",
+                "medools"
+            ],
+            "time": "2018-03-29T14:42:04+00:00"
+        },
+        {
+            "name": "aryelgois/utils",
+            "version": "v0.5.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/aryelgois/utils.git",
+                "reference": "683a4685de166592aadd0fe7ebec828b99f0cbdc"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://files.phpcomposer.com/files/aryelgois/utils/683a4685de166592aadd0fe7ebec828b99f0cbdc.zip",
+                "reference": "683a4685de166592aadd0fe7ebec828b99f0cbdc",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "aryelgois\\Utils\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Aryel Mota Góis",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Useful methods for not repeating myself",
+            "keywords": [
+                "utils"
+            ],
+            "time": "2018-03-10T13:03:12+00:00"
+        },
+        {
+            "name": "catfan/medoo",
+            "version": "v1.5.6",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/catfan/Medoo.git",
+                "reference": "f77a93f72864e892c99d1033b8733e5da8fb0b3b"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://files.phpcomposer.com/files/catfan/Medoo/f77a93f72864e892c99d1033b8733e5da8fb0b3b.zip",
+                "reference": "f77a93f72864e892c99d1033b8733e5da8fb0b3b",
                 "shasum": ""
             },
             "require": {
@@ -32,7 +117,7 @@
                 "ext-pdo_oci8": "For Oracle version 8 database",
                 "ext-pdo_pqsql": "For PostgreSQL database",
                 "ext-pdo_sqlite": "For SQLite database",
-                "ext-pdo_sqlsrv": "For MSSQL database on Windows platform"
+                "ext-pdo_sqlsrv": "For MSSQL database"
             },
             "type": "framework",
             "autoload": {
@@ -64,7 +149,7 @@
                 "sql",
                 "sqlite"
             ],
-            "time": "2017-06-24 14:43:07"
+            "time": "2018-03-26T17:54:24+00:00"
         },
         {
             "name": "doctrine/cache",
@@ -134,7 +219,7 @@
                 "cache",
                 "caching"
             ],
-            "time": "2015-11-02 18:33:51"
+            "time": "2015-11-02T18:33:51+00:00"
         },
         {
             "name": "katzgrau/klogger",
@@ -184,7 +269,7 @@
             "keywords": [
                 "logging"
             ],
-            "time": "2016-11-07 19:29:14"
+            "time": "2016-11-07T19:29:14+00:00"
         },
         {
             "name": "lcobucci/jwt",
@@ -242,7 +327,7 @@
                 "JWS",
                 "jwt"
             ],
-            "time": "2017-09-01 08:23:26"
+            "time": "2017-09-01T08:23:26+00:00"
         },
         {
             "name": "mikecao/flight",
@@ -285,7 +370,7 @@
             ],
             "description": "Flight is a fast, simple, extensible framework for PHP. Flight enables you to quickly and easily build RESTful web applications.",
             "homepage": "http://flightphp.com",
-            "time": "2017-10-20 01:46:56"
+            "time": "2017-10-20T01:46:56+00:00"
         },
         {
             "name": "psr/log",
@@ -332,7 +417,7 @@
                 "psr",
                 "psr-3"
             ],
-            "time": "2016-10-10 12:19:37"
+            "time": "2016-10-10T12:19:37+00:00"
         },
         {
             "name": "vlucas/phpdotenv",
@@ -378,7 +463,7 @@
                 "env",
                 "environment"
             ],
-            "time": "2015-05-30 16:15:01"
+            "time": "2015-05-30T16:15:01+00:00"
         }
     ],
     "packages-dev": [],
@@ -388,7 +473,7 @@
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
-        "php": ">=5.5.9"
+        "php": "^7.0"
     },
     "platform-dev": []
 }

@@ -25,7 +25,8 @@ return [
     'cache.path' => dirname(__DIR__).'/storage/cache',
     'log.path'   => dirname(__DIR__).'/storage/logs',
 
-    'auth.collections' => [
+    // auth middlewares
+    'auth.middlewares' => [
         'web' => WebAuthMiddleware::class,
     ],
 ];

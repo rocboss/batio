@@ -73,17 +73,19 @@ $logger = app()->log()->debug('debug log');
 
 数据库（Database）与模型（Models）
 
-在 `app\models` 中存放的是 `model` 和 `service` ，`model` 主要和数据库（Database）直接打交道，官方推荐的做法由 `service` 去调用 `model` ，`controller` 调用 `service`，这样设计会使得分层更加合理，便于系统业务的扩展和日后维护。
+在 `app\models` 中存放的是 `model` 和 `service` ，`model` 主要和数据库（Database）直接打交道，官方推荐的做法由 `service` 去调用 `model` ，`controller` 调用 `service`，这样设计会使得分层更加合理，各功能模块进一步解耦，便于业务系统的扩展和日后维护。
 
 ### 主要依赖
 ```
 lcobucci/jwt: 3.2.*
 mikecao/flight: 1.3.*
-catfan/medoo: 1.4.*
+aryelgois/medools: 5.0
+catfan/medoo: 1.5.*
 katzgrau/klogger: 1.*
 doctrine/cache: 1.4.*
 vlucas/phpdotenv: 2.0.*
 ```
+
 `Batio` 使用一些优秀的第三方组件，你可以从他们各自网站获得相应具体文档。
 
 

@@ -15,14 +15,14 @@ require __DIR__.'/../vendor/autoload.php';
 
 /*
 |--------------------------------------------------------------------------
-| Set Flight System Configuration
+| Set System Configuration
 |--------------------------------------------------------------------------
 */
 app()->set(require APP_PATH.'/config/app.php');
 
 /*
 |--------------------------------------------------------------------------
-| Flight autoload start
+| System autoload start
 |--------------------------------------------------------------------------
 */
 // controllers
@@ -38,6 +38,6 @@ app()->path(app()->get('flight.models.path'));
 app()->path(app()->get('flight.core.path'));
 /*
 |--------------------------------------------------------------------------
-| Flight autoload end
+| System autoload end
 |--------------------------------------------------------------------------
 */
