@@ -75,7 +75,7 @@ class Auth
         return -1;
     }
 
-    public function getInstance()
+    public static function getInstance()
     {
         if (empty(self::$instance)) {
             self::$instance = new self();
