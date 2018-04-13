@@ -11,7 +11,7 @@ use aryelgois\Medools\MedooConnection;
  */
 class Batio
 {
-    const VERSION = 'Batio 0.2.1';
+    const VERSION = 'Batio 0.2.4';
 
     protected static $_log;
     protected static $_db = [];
