@@ -82,7 +82,7 @@ class Batio
         });
 
         // Handle 500 error
-        app()->map('error', function (Exception $ex) {
+        app()->map('error', function ($ex) {
             // Record Log.
             app()->log()->error("500 Internal Server Error.\n".$ex->getMessage()."\n".$ex->getTraceAsString());
 
