@@ -5,56 +5,105 @@
 [![Latest Unstable Version](https://poser.pugx.org/rocboss/batio/v/unstable.svg?format=flat-square)](https://packagist.org/packages/rocboss/batio)
 [![License](https://poser.pugx.org/rocboss/batio/license?format=flat-square)](https://packagist.org/packages/rocboss/batio)
 
+English | [简体中文](./README_zh-CN.md)
+
 >   A fast and extensible micro-framework for PHP to build RESTful API.
 
->   一个快速的、可扩展的专注构建RESTful API的PHP框架
-
-## 安装
+## 1. Install
 
 ```bash
-// 方式一.  使用 git clone
-git clone https://github.com/rocboss/batio.git batio
-
-// 方式二. 使用 composer
+// (Recommend) If you’re using Composer, you can run the following command:
 composer create-project --prefer-dist rocboss/batio batio
+```
 
+```bash
+// Or git clone
+git clone https://github.com/rocboss/batio.git batio
+```
+
+```bash
 cd batio
+
 cp .env.example .env
-// 编辑配置
+// Edit .env file
 vim .env
+
 composer install
-cd app
-chmod -R 755 storage
+chmod -R 755 app/storage
+
 php -S 127.0.0.1:8888 -t public
 ```
-在浏览器中输入 `http://127.0.0.1:8888` 网址，您就可以看到本项目页面。
+Enter `http://127.0.0.1:8888` in the browser's address bar. If everything is correct, you can get the following return:
 
-你也可以设置 Web Server 的网站根目录指向到 `public` 文件夹，并使用 `composer` 来安装或更新依赖包等操作。
+```json
+{
+  "code": 0,
+  "msg": "success",
+  "data": "version: Batio 1.0.0"
+}
+```
 
-初次安装需要编辑项目根目录下的 `.env` 文件中相关配置信息，你也可以根据具体需求在该文件中扩展其他系统配置。
+> Note: the initial installation needs to edit the related configuration information in the `.env` file under the project root, and you can also extend the other configuration in the file according to specific requirements.
 
 
-### 框架使用
-在 `app\config\routes.php` 中你可以自定义API路由。
+## 2. Framework
 
-这是一个无鉴权的路由，访问首页时，直接映射到 `api\HomeController` 控制器，执行下面的 `index` 方法，注意控制器方法类型需要为 `protected`。
+### 2.1 Router
+In `app\config\routes.php`, you can customize API routes.
 
 ```php
 route('GET /', ['api\HomeController', 'index']);
 ```
 
-`Batio` 封装了基于JWT的一种简单的鉴权模型，对应的需要鉴权API的路由如下，只需调用 `auth()` 方法，传入自定义认证中间件`AuthMiddleware`。
+> This is an ordinary route. When you visit the home page, you directly map to the `api\HomeController` controller, execute the following `index` method, and note that the type of controller method needs to be `protected`.
+
+
+### 2.2 Middlewares
+
+In `app\config\app.php`, you can customize `Middleware` for routes, such as authorization authentication, user roles control, etc.
+
 ```php
-route('GET /', ['api\HomeController', 'index'])->auth('web');
+// Middlewares
+'middlewares' => [
+    'auth' => AuthMiddleware::class,
+],
 ```
 
-请求时在 `header` 中传递以 `X-Authorization` 为key的 `JWT` 值给服务器即可。
+`Batio` encapsulates a simple authentication model based on JWT, just call the `auth()` method after the routing of the authentication API.
+
+```php
+route('GET /', ['api\HomeController', 'user'])->auth();
 ```
-// 该方法可用来获取 JWT
+
+The example
+
+```json
+// Fail
+{
+    "code": 401,
+    "msg": "[401 Unauthorized]."
+}
+
+// Success
+{
+    "code": 0,
+    "msg": "success",
+    "data": {
+        "uid": 1,
+        "user_name": "Jack",
+        "user_age": 18
+    }
+}
+```
+
+> When you send a request, pass the `X-Authorization` of `JWT` value to the server in `header`.
+
+```php
+// This method can be used to obtain JWT.
 \Auth::getToken($uid);
 ```
 
-缓存（Cache）的使用
+### 2.3 Cache
 
 ```php
 if (app()->cache('data')->contains('foo')) {
@@ -64,31 +113,41 @@ if (app()->cache('data')->contains('foo')) {
     app()->cache('data')->save('foo', $bar);
 }
 ```
-日志（Log）的使用
+
+### 2.4 Log
 
 ```php
 $logger = app()->log()->debug('debug log');
 ```
 
 
-数据库（Database）与模型（Models）
+### 2.5 Database & Models
 
-在 `app\models` 中存放的是 `model` 和 `service` ，`model` 主要和数据库（Database）直接打交道，官方推荐的做法由 `service` 去调用 `model` ，`controller` 调用 `service`，这样设计会使得分层更加合理，各功能模块进一步解耦，便于业务系统的扩展和日后维护。
+```php
+$userModel = new UserModel();
+$userModel->name = 'Jack';
+$userModel->email = 'bar@foo.com';
+$userModel->avatar = 'https://foo.com/xxxxxx.png';
+$userModel->password = password_hash("mypassword", PASSWORD_DEFAULT);
+$userModel->save();
+```
 
-### 主要依赖
+> In `app\models`, `model` and `service` are stored, `model` is mainly dealing with database. The official recommended practice is that `service` calls `model`, `controller` calls `service`, so that the design makes the layering more reasonable, and the functional modules are decoupled to facilitate the business system. 
+
+### Mainly depended on
 ```
 lcobucci/jwt: 3.2.*
 mikecao/flight: 1.3.*
 aryelgois/medools: 5.0
 catfan/medoo: 1.5.*
-katzgrau/klogger: 1.*
+monolog/monolog: 1.23.*
 doctrine/cache: 1.4.*
 vlucas/phpdotenv: 2.0.*
 ```
 
-`Batio` 使用一些优秀的第三方组件，你可以从他们各自网站获得相应具体文档。
+`Batio` uses some excellent third party components, and you can get specific documents from their websites.
 
 
-## 授权协议
+## Authorization agreement
 
- [MIT 授权协议](http://opensource.org/licenses/MIT)
+ [MIT Agreement](http://opensource.org/licenses/MIT)
