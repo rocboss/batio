@@ -11,6 +11,7 @@ if (!function_exists('app')) {
         return Flight::app();
     }
 }
+
 if (!function_exists('env')) {
     /**
      * Get ENV variable
@@ -24,6 +25,7 @@ if (!function_exists('env')) {
         return getenv($name) ? : $default;
     }
 }
+
 if (!function_exists('guid')) {
     /**
     * 获取GUID
@@ -31,8 +33,8 @@ if (!function_exists('guid')) {
     * @param  string  $rand [description]
     * @return string
     */
-   function guid($rand = 'batio')
-   {
+    function guid($rand = 'batio')
+    {
         $charId = strtolower(md5(uniqid(mt_rand().$rand, true)));
 
         $hyphen = chr(45);// "-"
@@ -43,8 +45,9 @@ if (!function_exists('guid')) {
                 .substr($charId, 20, 12);
 
         return $uuid;
-   }
+    }
 }
+
 if (!function_exists('getAllHeader')) {
     /**
      * Get headers
@@ -68,19 +71,19 @@ if (!function_exists('getAllHeader')) {
         }
     }
 }
+
 if (!function_exists('route')) {
     /**
      * Route
      * @method route
      * @param  mixed  $pattern
      * @param  mixed  $callback
-     * @param  string $authMiddleware
-     * @return void
+     * @return Object
      */
     function route($pattern, $callback)
-    {   
+    {
         Flight::route($pattern, $callback);
 
-        return Auth::getInstance()->setCallback($callback);
+        return Middleware::getInstance()->setCallback($callback);
     }
 }

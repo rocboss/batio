@@ -7,15 +7,23 @@ use Lcobucci\JWT\Signer\Hmac\Sha256;
 
 class Auth
 {
-    const APP_NAME = 'batio';
-    const APP_DEFAULT_KEY = 'kA6oyldBWmX9AtGN';
+    const APP_NAME = 'Batio';
+    const APP_DEFAULT_KEY = 'BA6okldBWmX3AsGN';
 
     public static $callback = null;
     public static $instance = null;
     public static $authActions = [];
 
-    public function __construct() {}
+    public function __construct()
+    {
+    }
 
+    /**
+     * Get JWT Token
+     *
+     * @param integer $uid
+     * @return string
+     */
     public static function getToken($uid)
     {
         return (new Builder())
@@ -47,12 +55,13 @@ class Auth
             $token = (new Parser())->parse((string) $token);
 
             if ($token->verify((new Sha256()), env('JWT_SECRET', self::APP_DEFAULT_KEY))) {
-
                 $data = new ValidationData();
                 $data->setIssuer(env('APP_NAME', self::APP_NAME));
 
                 if ($token->validate($data) && $token->getClaim('uid') > 0) {
                     app()->set('uid', $token->getClaim('uid'));
+
+                    // Your code.
 
                     return 1;
                 }
@@ -73,26 +82,5 @@ class Auth
         }
 
         return -1;
-    }
-
-    public static function getInstance()
-    {
-        if (empty(self::$instance)) {
-            self::$instance = new self();
-        }
-
-        return self::$instance;
-    }
-
-    public function setCallback($callback)
-    {
-        self::$callback = $callback;
-
-        return self::getInstance();
-    }
-
-    public function auth($authMiddleware)
-    {
-        self::$authActions[md5(implode('@', self::$callback))] = $authMiddleware;
     }
 }

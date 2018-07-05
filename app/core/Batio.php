@@ -1,17 +1,19 @@
 <?php
 
 use Lcobucci\JWT\Builder;
-use Katzgrau\KLogger\Logger;
-use Psr\Log\LogLevel;
+use Monolog\Logger;
+use Monolog\Handler\StreamHandler;
 use aryelgois\Medools\MedooConnection;
 
 /**
  * Batio kernel class
- * Author Roc. [https://github.com/rocboss/batio]
+ *
+ * @author Roc <i@rocs.me>
+ * @link https://github.com/rocboss/batio
  */
 class Batio
 {
-    const VERSION = 'Batio 0.2.4';
+    const VERSION = 'Batio 1.0.0';
 
     protected static $_log;
     protected static $_db = [];
@@ -52,21 +54,6 @@ class Batio
         // Cache
         app()->register('cache', [__CLASS__, 'cache']);
 
-        // Auth
-        app()->map('auth', function ($callback) {
-            if (!empty($callback) && is_array($callback)) {
-                $callbackHash = md5(implode('@', $callback));
-                if (array_key_exists($callbackHash, Auth::$authActions)) {
-                    if (app()->get('auth.middlewares')[Auth::$authActions[$callbackHash]]) {
-                        $middleware = app()->get('auth.middlewares')[Auth::$authActions[$callbackHash]];
-                        return $middleware::check();
-                        
-                    }
-                    throw new Exception('Can\'t find the auth middleware.');    
-                }
-            }
-        });
-
         // Halt response
         app()->map('halt', [__CLASS__, 'halt']);
 
@@ -101,28 +88,29 @@ class Batio
         | Flight registers/maps end
         |--------------------------------------------------------------------------
         */
+
+        // Middleware
+        new Middleware();
+
         // Route
         require APP_PATH.'/config/routes.php';
     }
 
     /**
-     * Log
-     * @method log
-     * @param  string $prefix
-     * @return Object
-     */
-    public static function log($prefix = 'batio_')
+      * Log
+      * @method log
+      * @param  string $name
+      * @return Object
+      */
+    public static function log($name = 'system')
     {
-        $logDir = app()->get('log.path');
+        $logDir = app()->get('log.path').'/batio_'.date('Y-m-d').'.log';
 
         if (!isset(self::$_log)) {
-            $options = [
-                'extension'  => 'log',
-                'dateFormat' => 'Y-m-d H:i:s',
-                'prefix'     => $prefix,
-            ];
-            $logger = new Logger($logDir, LogLevel::DEBUG, $options);
-            self::$_log = $logger;
+            $log = new Logger($name);
+            $log->pushHandler(new StreamHandler($logDir, Logger::INFO));
+
+            self::$_log = $log;
         }
 
         return self::$_log;

@@ -11,6 +11,7 @@ class HomeController extends BaseController
 {
     /**
      * This is a demo method.
+     * 
      * @method index
      * @return mixed
      */
@@ -26,21 +27,34 @@ class HomeController extends BaseController
     /**
      * This is a demo method for model.
      *
-     * @return void
+     * @method test
+     * @return mixed
      */
     protected function test()
     {
+        // You should configure your database and create a table first.
         $userModel = new UserModel();
-        $userModel->dump([
+        // Get records
+        $records = $userModel->dump([
             'id[>]' => 1,
             'LIMIT' => [0, 10],
+        ]);
+
+        return app()->json([
+            'code' => 0,
+            'msg'  => 'success',
+            'data' => [
+                'records' => $records,
+                'token' => (string) \Auth::getToken('12'),
+            ],
         ]);
     }
 
     /**
-     * This is a demo method for authentication.
-     *
-     * @return void
+     * This is a demo method for middleware of authentication.
+     * 
+     * @method user
+     * @return mixed
      */
     protected function user()
     {
