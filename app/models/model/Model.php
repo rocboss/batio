@@ -10,7 +10,7 @@ class Model extends MedoolsModel
     /**
      * Construct Method
      * @method __construct
-     * @return void
+     * @return Object
      */
     public function __construct($db = 'default')
     {
@@ -23,7 +23,7 @@ class Model extends MedoolsModel
     /**
      * getError
      * @method getError
-     * @return void
+     * @return string
      */
     public function getError()
     {
