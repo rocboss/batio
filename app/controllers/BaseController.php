@@ -31,6 +31,8 @@ class BaseController
         self::$_class = get_called_class();
         self::$_method = $method;
 
-        call_user_func_array([(new self::$_class()), self::$_method], $arguments);
+        $return = call_user_func_array([(new self::$_class()), self::$_method], $arguments);
+        
+        return app()->get('isJob') ? $return : app()->json($return);
     }
 }

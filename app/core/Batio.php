@@ -1,8 +1,10 @@
 <?php
 
 use Lcobucci\JWT\Builder;
+use Elastica\Client;
 use Monolog\Logger;
 use Monolog\Handler\StreamHandler;
+use Monolog\Handler\ElasticSearchHandler;
 use aryelgois\Medools\MedooConnection;
 
 /**
@@ -13,9 +15,11 @@ use aryelgois\Medools\MedooConnection;
  */
 class Batio
 {
-    const VERSION = 'Batio 1.0.0';
+    const VERSION = 'Batio 1.1.0';
 
     protected static $_log;
+    protected static $_es;
+    protected static $_redis;
     protected static $_db = [];
     protected static $_cache = [];
 
@@ -50,6 +54,12 @@ class Batio
 
         // DB
         app()->register('db', [__CLASS__, 'db']);
+
+        // ElasticSearch
+        app()->register('es', [__CLASS__, 'elasticsearch']);
+
+        // Redis
+        app()->register('redis', [__CLASS__, 'redis']);
 
         // Cache
         app()->register('cache', [__CLASS__, 'cache']);
@@ -108,12 +118,87 @@ class Batio
 
         if (!isset(self::$_log)) {
             $log = new Logger($name);
-            $log->pushHandler(new StreamHandler($logDir, Logger::INFO));
+            if (env('ES_HOST')) {
+                // Create ElasticSearch Instance.
+                $elasticaClient = new Client([
+                    'host' => env('ES_HOST'),
+                    'port' => env('ES_PORT', 9200),
+                    'transport' => ENV('ES_TRANSPORT', 'http'),
+                    'username' => env('ES_USER'),
+                    'password' => env('ES_PASSWORD')
+                ]);
+                $elasticaIndex = $elasticaClient->getIndex(env('ES_LOG_INDEX').'-'.date('Ymd'));
+                if ($elasticaIndex->exists()) {
+                    if ($elasticaIndex->getSettings()->getNumberOfReplicas() != 0) {
+                        // reset replicas
+                        $elasticaIndex->getSettings()->setNumberOfReplicas(0);
+                    }
+                } else {
+                    $elasticaIndex->create([
+                        'number_of_replicas' => 0,
+                    ]);
+                }
+
+                $log->pushHandler(new ElasticSearchHandler($elasticaClient, [
+                    'index' => env('ES_LOG_INDEX').'-'.date('Ymd'),
+                    'type' => env('ES_LOG_TYPE'),
+                    'ignore_error' => true,
+                ], Logger::INFO));
+            } else {
+                // Create File Stream Instance.
+                $log->pushHandler(new StreamHandler($logDir, Logger::INFO));
+            }
 
             self::$_log = $log;
         }
 
         return self::$_log;
+    }
+
+    /**
+     * Get elasticSearch instance
+     * @method elasticsearch
+     * @return Object
+     */
+    public static function elasticsearch()
+    {
+        if (!isset(self::$_es)) {
+            self::$_es = new ElasticSearch([
+                [
+                    'host' => env('ES_HOST'),
+                    'port' => env('ES_PORT'),
+                    'scheme' => ENV('ES_TRANSPORT', 'http'),
+                    'user' => env('ES_USER', null),
+                    'pass' => env('ES_PASSWORD', null)
+                ]
+            ]);
+        }
+
+        return self::$_es;
+    }
+    
+    /**
+     * Redis
+     * @method redis
+     * @return Object
+     */
+    public static function redis()
+    {
+        if (!isset(self::$_redis)) {
+            self::$_redis = new \Predis\Client([
+                'scheme' => env('REDIS_SCHEME', 'tcp'),
+                'host' => env('REDIS_HOST', '127.0.0.1'),
+                'port' => env('REDIS_PORT', 6379),
+            ], [
+                'parameters' => [
+                    'password' => env('REDIS_PASSWORD', null),
+                ],
+            ]);
+            // select DB
+            self::$_redis->select(env('REDIS_DATABASE', 1));
+        }
+
+        return self::$_redis;
     }
 
     /**

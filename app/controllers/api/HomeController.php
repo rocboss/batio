@@ -13,22 +13,27 @@ class HomeController extends BaseController
      * This is a demo method.
      * 
      * @method index
-     * @return mixed
+     * @return array
      */
     protected function index()
     {
-        return app()->json([
+        // Add Log
+        app()->log()->info('IndexLog', [
+            'data' => 'index',
+        ]);
+
+        return [
             'code' => 0,
             'msg'  => 'success',
             'data' => 'version: '.\Batio::VERSION,
-        ]);
+        ];
     }
 
     /**
      * This is a demo method for model.
      *
      * @method test
-     * @return mixed
+     * @return array
      */
     protected function test()
     {
@@ -40,25 +45,25 @@ class HomeController extends BaseController
             'LIMIT' => [0, 10],
         ]);
 
-        return app()->json([
+        return [
             'code' => 0,
             'msg'  => 'success',
             'data' => [
                 'records' => $records,
                 'token' => (string) \Auth::getToken('12'),
             ],
-        ]);
+        ];
     }
 
     /**
      * This is a demo method for middleware of authentication.
      * 
      * @method user
-     * @return mixed
+     * @return array
      */
     protected function user()
     {
-        return app()->json([
+        return [
             'code' => 0,
             'msg'  => 'success',
             'data' => [
@@ -66,6 +71,18 @@ class HomeController extends BaseController
                 'user_name' => 'Jack',
                 'user_age' => 18,
             ]
-        ]);
+        ];
+    }
+
+    /**
+     * DEMO JOB
+     *
+     * @return array
+     */
+    protected function demoJob()
+    {
+        return [
+            'time' => time(),
+        ];
     }
 }
