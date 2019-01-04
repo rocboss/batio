@@ -29,4 +29,7 @@ return [
     'middlewares' => [
         'auth' => AuthMiddleware::class,
     ],
+
+    // Jobs config
+    'jobs' => require(dirname(__DIR__).'/config/jobs.php'),
 ];

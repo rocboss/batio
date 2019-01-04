@@ -19,9 +19,16 @@
         "monolog/monolog": "^1.23",
         "doctrine/cache": "1.4.*",
         "vlucas/phpdotenv": "2.0.*",
+        "predis/predis": "^1.1",
+        "ruflin/elastica": "^6.1",
+        "elasticsearch/elasticsearch": "^6.0",
         "aryelgois/medools": "5.0.0"
     },
     "config": {
         "preferred-install": "dist"
-    }
+    },
+    "repositories": [
+        {"type": "composer", "url": "http://packagist.phpcomposer.com"},
+        {"packagist": false}
+    ]
 }
