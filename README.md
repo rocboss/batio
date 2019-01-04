@@ -143,6 +143,9 @@ catfan/medoo: 1.5.*
 monolog/monolog: 1.23.*
 doctrine/cache: 1.4.*
 vlucas/phpdotenv: 2.0.*
+predis/predis: 1.1.*
+ruflin/elastica: 6.1.*
+elasticsearch/elasticsearch: 6.0.*
 ```
 
 `Batio` uses some excellent third party components, and you can get specific documents from their websites.
