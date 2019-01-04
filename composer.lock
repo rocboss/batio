@@ -230,7 +230,7 @@
                 "reference": "b8e3bc9d1fc54d6a18692df0b74956efe7fe241a"
             },
             "dist": {
-                "type": "baidu-composer-archive",
+                "type": "composer",
                 "url": "https://api.github.com/repos/elastic/elasticsearch-php/zipball/b8e3bc9d1fc54d6a18692df0b74956efe7fe241a",
                 "reference": "b8e3bc9d1fc54d6a18692df0b74956efe7fe241a",
                 "shasum": ""
@@ -286,7 +286,7 @@
                 "reference": "5e2a174052995663dd68e6b5ad838afd47dd615b"
             },
             "dist": {
-                "type": "baidu-composer-archive",
+                "type": "composer",
                 "url": "https://api.github.com/repos/guzzle/RingPHP/zipball/5e2a174052995663dd68e6b5ad838afd47dd615b",
                 "reference": "5e2a174052995663dd68e6b5ad838afd47dd615b",
                 "shasum": ""
@@ -336,7 +336,7 @@
                 "reference": "47aaa48e27dae43d39fc1cea0ccf0d84ac1a2ba5"
             },
             "dist": {
-                "type": "baidu-composer-archive",
+                "type": "composer",
                 "url": "https://api.github.com/repos/guzzle/streams/zipball/47aaa48e27dae43d39fc1cea0ccf0d84ac1a2ba5",
                 "reference": "47aaa48e27dae43d39fc1cea0ccf0d84ac1a2ba5",
                 "shasum": ""
@@ -564,7 +564,7 @@
                 "reference": "f0210e38881631afeafb56ab43405a92cafd9fd1"
             },
             "dist": {
-                "type": "baidu-composer-archive",
+                "type": "composer",
                 "url": "https://api.github.com/repos/nrk/predis/zipball/f0210e38881631afeafb56ab43405a92cafd9fd1",
                 "reference": "f0210e38881631afeafb56ab43405a92cafd9fd1",
                 "shasum": ""
@@ -660,7 +660,7 @@
                 "reference": "f4edc2581617431aea50430749db55cc3fc031b3"
             },
             "dist": {
-                "type": "baidu-composer-archive",
+                "type": "composer",
                 "url": "https://api.github.com/repos/reactphp/promise/zipball/f4edc2581617431aea50430749db55cc3fc031b3",
                 "reference": "f4edc2581617431aea50430749db55cc3fc031b3",
                 "shasum": ""
@@ -705,7 +705,7 @@
                 "reference": "620552f2f0beec4b8aa76a1e734f35464c854e7c"
             },
             "dist": {
-                "type": "baidu-composer-archive",
+                "type": "composer",
                 "url": "https://api.github.com/repos/ruflin/Elastica/zipball/620552f2f0beec4b8aa76a1e734f35464c854e7c",
                 "reference": "620552f2f0beec4b8aa76a1e734f35464c854e7c",
                 "shasum": ""
