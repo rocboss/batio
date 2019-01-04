@@ -139,6 +139,9 @@ catfan/medoo: 1.5.*
 monolog/monolog: 1.23.*
 doctrine/cache: 1.4.*
 vlucas/phpdotenv: 2.0.*
+predis/predis: 1.1.*
+ruflin/elastica: 6.1.*
+elasticsearch/elasticsearch: 6.0.*
 ```
 
 `Batio` 使用一些优秀的第三方组件，你可以从他们各自网站获得相应具体文档。
